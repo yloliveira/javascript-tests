@@ -1,0 +1,24 @@
+{
+  "name": "javascript-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yloliveira/javascript-tests.git"
+  },
+  "keywords": [],
+  "author": "Yan Oliveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yloliveira/javascript-tests/issues"
+  },
+  "homepage": "https://github.com/yloliveira/javascript-tests#readme",
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "jest": "^27.3.1"
+  }
+}
