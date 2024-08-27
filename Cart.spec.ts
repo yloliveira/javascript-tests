@@ -21,14 +21,14 @@ beforeEach(() => {
 describe("Cart", () => {
   describe("getTotal()", () => {
     it("should return 0 when getTotal is called in a newly created cart", () => {
-      expect(cart.getTotal()).toBe(0);
+      expect(cart.getTotal().getAmount()).toBe(0);
     });
 
     it("should add new products and return the correct cart total value", () => {
       cart.addProduct(product1, 2);
       cart.addProduct(product2, 1);
 
-      expect(cart.getTotal()).toBe(19970);
+      expect(cart.getTotal().getAmount()).toBe(19970);
     });
 
     it("should remove new products and return the correct cart total value", () => {
@@ -38,7 +38,7 @@ describe("Cart", () => {
       cart.removeProduct(product1.id, 1);
       cart.removeProduct(product2.id, 1);
 
-      expect(cart.getTotal()).toBe(4990);
+      expect(cart.getTotal().getAmount()).toBe(4990);
     });
   });
 
@@ -78,7 +78,7 @@ describe("Cart", () => {
 
       cart.checkOut();
 
-      expect(cart.getTotal()).toBe(0);
+      expect(cart.getTotal().getAmount()).toBe(0);
       expect(cart.getSummary()).toMatchInlineSnapshot(`
         {
           "items": [],

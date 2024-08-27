@@ -1,3 +1,5 @@
+import Money, { Dinero as MoneyType } from "dinero.js";
+
 type Product = {
   id: string;
   title: string;
@@ -17,10 +19,11 @@ type Summary = {
 export default class Cart {
   private items: Item[] = [];
 
-  getTotal(): number {
+  getTotal(): MoneyType {
     return this.items.reduce(
-      (acc, cur) => acc + cur.product.price * cur.quantity,
-      0
+      (acc, cur) =>
+        acc.add(Money({ amount: cur.product.price * cur.quantity })),
+      Money({ amount: 0 })
     );
   }
 
@@ -43,7 +46,7 @@ export default class Cart {
   getSummary(): Summary {
     return {
       items: this.items,
-      total: this.getTotal(),
+      total: this.getTotal().getAmount(),
     };
   }
 
