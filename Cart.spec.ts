@@ -41,4 +41,35 @@ describe("Cart", () => {
       expect(cart.getTotal()).toBe(4990);
     });
   });
+
+  describe("checkOut()", () => {
+    it("should return the correct cart summary", () => {
+      cart.addProduct(product1, 2);
+      cart.addProduct(product2, 1);
+
+      expect(cart.checkOut()).toMatchInlineSnapshot(`
+        {
+          "items": [
+            {
+              "product": {
+                "id": "1",
+                "price": 4990,
+                "title": "Product 1",
+              },
+              "quantity": 2,
+            },
+            {
+              "product": {
+                "id": "2",
+                "price": 9990,
+                "title": "Product 2",
+              },
+              "quantity": 1,
+            },
+          ],
+          "total": 19970,
+        }
+      `);
+    });
+  });
 });
