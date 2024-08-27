@@ -4,6 +4,10 @@ type Product = {
   id: string;
   title: string;
   price: number;
+  discountCondition?: {
+    minimum: number;
+    percentage: number;
+  };
 };
 
 type Item = {
@@ -20,11 +24,20 @@ export default class Cart {
   private items: Item[] = [];
 
   getTotal(): MoneyType {
-    return this.items.reduce(
-      (acc, cur) =>
-        acc.add(Money({ amount: cur.product.price * cur.quantity })),
-      Money({ amount: 0 })
-    );
+    return this.items.reduce((acc, item) => {
+      const amount = Money({ amount: item.product.price * item.quantity });
+      let discount = Money({ amount: 0 });
+
+      if (
+        item.product.discountCondition &&
+        item.product.discountCondition.percentage &&
+        item.quantity >= item.product.discountCondition.minimum
+      ) {
+        discount = amount.percentage(item.product.discountCondition.percentage);
+      }
+
+      return acc.add(amount).subtract(discount);
+    }, Money({ amount: 0 }));
   }
 
   addProduct(product: Product, quantity: number): void {
