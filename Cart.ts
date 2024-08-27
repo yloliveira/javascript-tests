@@ -34,4 +34,11 @@ export default class Cart {
       this.items[index].quantity -= quantity;
     }
   }
+
+  checkOut() {
+    return {
+      items: this.items,
+      total: this.getTotal(),
+    };
+  }
 }
