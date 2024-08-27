@@ -10,7 +10,7 @@ type Item = {
 };
 
 export default class Cart {
-  items: Item[] = [];
+  private items: Item[] = [];
 
   getTotal() {
     return this.items.reduce(
