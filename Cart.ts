@@ -8,17 +8,17 @@ type Item = {
   quantity: number;
 };
 
-const items: Item[] = [];
-
 export default class Cart {
+  items: Item[] = [];
+
   getTotal() {
-    return items.reduce(
+    return this.items.reduce(
       (acc, cur) => acc + cur.product.price * cur.quantity,
       0
     );
   }
 
   addProduct(product: Product, quantity: number) {
-    items.push({ product, quantity });
+    this.items.push({ product, quantity });
   }
 }
