@@ -9,21 +9,26 @@ type Item = {
   quantity: number;
 };
 
+type Summary = {
+  items: Item[];
+  total: number;
+};
+
 export default class Cart {
   private items: Item[] = [];
 
-  getTotal() {
+  getTotal(): number {
     return this.items.reduce(
       (acc, cur) => acc + cur.product.price * cur.quantity,
       0
     );
   }
 
-  addProduct(product: Product, quantity: number) {
+  addProduct(product: Product, quantity: number): void {
     this.items.push({ product, quantity });
   }
 
-  removeProduct(productId: string, quantity: number) {
+  removeProduct(productId: string, quantity: number): void {
     const index = this.items.findIndex(item => {
       return item.product.id === productId;
     });
@@ -35,10 +40,21 @@ export default class Cart {
     }
   }
 
-  checkOut() {
+  getSummary(): Summary {
     return {
       items: this.items,
       total: this.getTotal(),
     };
+  }
+
+  checkOut(): Summary {
+    const { items, total } = this.getSummary();
+    this.cleanCart();
+
+    return { items, total };
+  }
+
+  private cleanCart() {
+    this.items = [];
   }
 }
