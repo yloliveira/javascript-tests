@@ -12,30 +12,33 @@ const product2 = {
   price: 9990,
 };
 
+let cart;
+
+beforeEach(() => {
+  cart = new Cart();
+});
+
 describe("Cart", () => {
-  it("should return 0 when getTotal is called in a newly created cart", () => {
-    const cart = new Cart();
-    expect(cart.getTotal()).toBe(0);
-  });
+  describe("getTotal()", () => {
+    it("should return 0 when getTotal is called in a newly created cart", () => {
+      expect(cart.getTotal()).toBe(0);
+    });
 
-  it("should add new products and return the correct cart total value", () => {
-    const cart = new Cart();
+    it("should add new products and return the correct cart total value", () => {
+      cart.addProduct(product1, 2);
+      cart.addProduct(product2, 1);
 
-    cart.addProduct(product1, 2);
-    cart.addProduct(product2, 1);
+      expect(cart.getTotal()).toBe(19970);
+    });
 
-    expect(cart.getTotal()).toBe(19970);
-  });
+    it("should remove new products and return the correct cart total value", () => {
+      cart.addProduct(product1, 2);
+      cart.addProduct(product2, 1);
 
-  it("should remove new products and return the correct cart total value", () => {
-    const cart = new Cart();
+      cart.removeProduct(product1.id, 1);
+      cart.removeProduct(product2.id, 1);
 
-    cart.addProduct(product1, 2);
-    cart.addProduct(product2, 1);
-
-    cart.removeProduct(product1.id, 1);
-    cart.removeProduct(product2.id, 1);
-
-    expect(cart.getTotal()).toBe(4990);
+      expect(cart.getTotal()).toBe(4990);
+    });
   });
 });
