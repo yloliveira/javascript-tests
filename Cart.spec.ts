@@ -71,5 +71,20 @@ describe("Cart", () => {
         }
       `);
     });
+
+    it("should clean the cart when checkout", () => {
+      cart.addProduct(product1, 2);
+      cart.addProduct(product2, 1);
+
+      cart.checkOut();
+
+      expect(cart.getTotal()).toBe(0);
+      expect(cart.getSummary()).toMatchInlineSnapshot(`
+        {
+          "items": [],
+          "total": 0,
+        }
+      `);
+    });
   });
 });
