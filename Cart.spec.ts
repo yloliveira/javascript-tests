@@ -4,6 +4,10 @@ const product1 = {
   id: "1",
   title: "Product 1",
   price: 4990,
+  discountCondition: {
+    minimum: 3,
+    percentage: 15,
+  },
 };
 
 const product2 = {
@@ -40,6 +44,13 @@ describe("Cart", () => {
 
       expect(cart.getTotal().getAmount()).toBe(4990);
     });
+
+    it("should apply percentage discount when discount condition is satisfied", () => {
+      cart.addProduct(product1, 3);
+      cart.addProduct(product2, 1);
+
+      expect(cart.getTotal().getAmount()).toBe(22714);
+    });
   });
 
   describe("checkOut()", () => {
@@ -52,6 +63,10 @@ describe("Cart", () => {
           "items": [
             {
               "product": {
+                "discountCondition": {
+                  "minimum": 3,
+                  "percentage": 15,
+                },
                 "id": "1",
                 "price": 4990,
                 "title": "Product 1",
